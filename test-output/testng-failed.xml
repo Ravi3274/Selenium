@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite thread-count="2" guice-stage="DEVELOPMENT" verbose="4" name="Failed suite [Open Cart Suite]" parallel="tests">
-  <test thread-count="2" verbose="4" name="Login Page Test(failed)" parallel="tests">
+<suite guice-stage="DEVELOPMENT" name="Failed suite [Default suite]">
+  <test thread-count="5" name="Default test(failed)">
     <classes>
       <class name="com.qa.opencart.tests.AccountsPageTest">
         <methods>
+          <include name="doSearchTest"/>
           <include name="tearDown"/>
           <include name="accPageTitleTest"/>
           <include name="accPageHeaderTest"/>
+          <include name="accPageSetUp"/>
           <include name="setUp"/>
           <include name="accPageSectionsListTest"/>
+          <include name="selectProductTest"/>
         </methods>
       </class> <!-- com.qa.opencart.tests.AccountsPageTest -->
     </classes>
-  </test> <!-- Login Page Test(failed) -->
-</suite> <!-- Failed suite [Open Cart Suite] -->
+  </test> <!-- Default test(failed) -->
+</suite> <!-- Failed suite [Default suite] -->

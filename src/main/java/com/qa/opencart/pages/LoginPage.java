@@ -6,11 +6,15 @@ import java.util.ArrayList;
 import java.util.List;
 import org.openqa.selenium.WebElement;
 
+import com.qa.opencart.utils.Constants;
+import com.qa.opencart.utils.ElementUtil;
+
 
 
 public class LoginPage  {
 	
 	private WebDriver driver;
+	private ElementUtil elementutil;
 	
 	
 		private By emailId = By.id("input-email");
@@ -18,33 +22,35 @@ public class LoginPage  {
 		private By loginButton = By.xpath("//input[@value='Login']");
 		private By forgotPwdLink = By.linkText("Forgotten Password");
 		private By footerLinks = By.xpath("//footer//div[@class='row']//a");
+		private By registerLink = By.linkText("Register");
 	
 		
 		
 			public LoginPage(WebDriver driver) {
 				this.driver = driver;
+				elementutil = new ElementUtil(this.driver);
 				
 			}
 
 			public String getLoginPageTitle() {
-				return  driver.getTitle();
+				return elementutil.getPageTitle(Constants.LOGIN_PAGE_TITLE, Constants.DEFAULT_TIME_OUT);
 			}
 
 		
 			public boolean isForgotPwdLinkExist() {
-				return driver.findElement(forgotPwdLink).isDisplayed();
+				return  elementutil.doIsDisplayed(forgotPwdLink);
 			}
 
 			public AccountsPage doLogin(String un, String pwd) {
-			    driver.findElement(emailId).sendKeys(un);
-				driver.findElement(password).sendKeys(pwd);
-				driver.findElement(loginButton).click();
+			  elementutil.doSendKeys(emailId, un);
+			  elementutil.doSendKeys(password, pwd);
+			  elementutil.doClick(loginButton);
 				return new AccountsPage(driver);
 			}
 
 		
 			public List<String> getFooterLinks() {
-				List<WebElement> footerList = driver.findElements(footerLinks);
+				List<WebElement> footerList = elementutil.getElements(footerLinks);
 				List<String> footerTextList = new ArrayList<String>();
 
 				for (WebElement e : footerList) {
@@ -53,9 +59,16 @@ public class LoginPage  {
 				return footerTextList;
 
 			}
+			
+			public RegistrationPage navigateToRegisterPage() {
+				elementutil.doClick(registerLink);
+				return new RegistrationPage(driver);
+			}
+
+		}
 
 		
 
-		}
+		
 
 		

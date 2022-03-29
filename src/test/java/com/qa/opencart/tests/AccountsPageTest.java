@@ -2,14 +2,15 @@ package com.qa.opencart.tests;
 import java.util.List;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import com.qa.opencart.utils.Constants;
 public class AccountsPageTest extends BaseTest {
 
-	//@BeforeClass
-	//public void accPageSetUp() {
-	//	accPage = loginPage.doLogin(prop.getProperty("username"), prop.getProperty("password"));
-	//}
+	@BeforeClass
+	public void accPageSetUp() {
+		accPage = loginPage.doLogin(prop.getProperty("username"),prop.getProperty("password"));
+	}
 
 	@Test
 	public void accPageTitleTest() {
@@ -28,9 +29,49 @@ public class AccountsPageTest extends BaseTest {
 	@Test
 	public void accPageSectionsListTest() {
 		List<String> secList = accPage.getAccSectionsList();
-		softAssert.assertEquals(secList.size(),4);
+		softAssert.assertEquals(secList.size(),Constants.ACC_PAGE_SEC_COUNT);
+		softAssert.assertEquals(secList,Constants.Expected_Acc_SEC_List);
 		softAssert.assertAll();
 	}
-
+	
+	@DataProvider
+	public Object[][] productData()
+	{
+		return new Object[][] 
+				{
+			{"imac"},
+			{"macbook"},
+			{"macbook"}
+			
+				};
+	}
+	
+	@Test(dataProvider = "productData")
+	public void doSearchTest(String productName)
+	{
+		SearchResultspage = accPage.doSeaarh(productName);
+	    Assert.assertTrue(SearchResultspage.getSearchProductListCount()>0);
+		
+		
+	}
+	
+	@DataProvider
+	public Object[][] productSelectData()
+	{
+		return new Object[][] 
+				{
+			{"MacBook" , "MacBook Pro"},
+				};
+			
+	}
+	@Test(dataProvider = "productSelectData")
+	public void selectProductTest(String ProductData, String mainProductName)
+	{
+		SearchResultspage = accPage.doSeaarh(ProductData);
+		SearchResultspage.selectproduct(mainProductName);
+	
 	
 }
+}
+
+

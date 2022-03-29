@@ -17,11 +17,13 @@ public class DriverFactory {
 
 	public WebDriver driver;
 	public Properties prop;
+	public static String highlight;
 
 	public WebDriver init_driver(Properties prop) {
 
 		String browser = prop.getProperty("browser").trim();
 		
+		highlight = prop.getProperty("highlight");
 
 		System.out.println("browser name is: " + browser);
 

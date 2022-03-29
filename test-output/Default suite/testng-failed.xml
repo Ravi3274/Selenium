@@ -5,10 +5,14 @@
     <classes>
       <class name="com.qa.opencart.tests.AccountsPageTest">
         <methods>
+          <include name="doSearchTest"/>
           <include name="tearDown"/>
           <include name="accPageTitleTest"/>
+          <include name="accPageHeaderTest"/>
           <include name="accPageSetUp"/>
           <include name="setUp"/>
+          <include name="accPageSectionsListTest"/>
+          <include name="selectProductTest"/>
         </methods>
       </class> <!-- com.qa.opencart.tests.AccountsPageTest -->
     </classes>
